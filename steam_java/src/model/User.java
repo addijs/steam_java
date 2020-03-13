@@ -9,7 +9,6 @@ public class User {
 	private String password;
 	private double wallet;
 	private ArrayList<Game> library;
-	private Boolean isLogged = false;
 	
 	public User(String name, String email, String pass) {
 		this.name = name;
@@ -55,7 +54,11 @@ public class User {
 		return wallet;
 	}
 
-	public void setWallet(double wallet) {
-		this.wallet = wallet;
+	public void addMoneyWallet(double amount) {
+		this.wallet = this.wallet + amount;
+	}
+	
+	public void debitMoneyWallet(double amount) {
+		this.wallet = this.wallet - amount;
 	}
 }

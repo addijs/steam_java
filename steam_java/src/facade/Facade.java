@@ -33,7 +33,6 @@ public class Facade {
 			throw new Exception(String.format("This game has already been registered: %s", gameTitle));
 		}
 
-		// g = new Game(title, price);
 		for(String x: obj.getGenres()) {
 			Genre genre = daoGenre.read(x);
 			if(genre == null) {
@@ -42,9 +41,10 @@ public class Facade {
 						String.format("The genre %s does not exists. %s wasn't registered.", x, gameTitle)
 					);
 			}
+			genre.addGame(obj);
 		}
 		
-		daoGame.create(obj);	
+		daoGame.create(obj);
 		DAO.commit();
 		System.out.println(String.format("The game was registered successfully.", gameTitle));
 	}
@@ -101,6 +101,12 @@ public class Facade {
 	}
 	
 	public static void addMoney(double value) throws Exception {
-				
+		User user = repo.getIsLogged(); 
+		
+		if(user == null) {
+			throw new Exception("You need to be logged to execute this action.");
+		}
+		
+		user.addMoneyWallet(value);
 	}
 }
